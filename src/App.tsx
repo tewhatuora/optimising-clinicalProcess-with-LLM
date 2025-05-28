@@ -13,7 +13,6 @@ function App() {
   const [result, setResult] = useState('');
   const [fileName, setFileName] = useState("");
   const [useCase, setUseCase] = useState('discharge');
-  const [useCase, setUseCase] = useState('discharge');
   const [assistants, setAssistants] = useState<Assistant[]>([]);
   const [selectedAssistant, setSelectedAssistant] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
