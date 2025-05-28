@@ -13,6 +13,7 @@ function App() {
   const [result, setResult] = useState('');
   const [fileName, setFileName] = useState("");
   const [useCase, setUseCase] = useState('discharge');
+  const [useCase, setUseCase] = useState('discharge');
   const [assistants, setAssistants] = useState<Assistant[]>([]);
   const [selectedAssistant, setSelectedAssistant] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -80,9 +81,20 @@ function App() {
         }
       );
 
+      const useCaseAssistantMap = {
+        discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
+        review: "asst_6erSDGc8VagbJqzt6RWPT9t0", // Add your new assistant here
+      };
+
+      // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
+      const assistantId = useCaseAssistantMap[useCase] || selectedAssistant;
+      {/*
       const assistantId = useCase === 'discharge' 
-        ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl" 
+        ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl"
+        : useCase === 'learning_review_report'
+        ? "asst_6erSDGc8VagbJqzt6RWPT9t0"
         : selectedAssistant;
+      */}
       console.log("Assts ID", assistantId);
       const runResponse = await client.beta.threads.runs.create(threadId, {
         assistant_id: assistantId,
@@ -190,6 +202,7 @@ function App() {
             >
               <option value="discharge">Discharge Summary Analysis</option>
               <option value="tuhi">Tuhi Transcripts Analysis</option>
+              <option value="learning_review_report">Learn Review Report</option>
             </select>
 
             {useCase === 'tuhi' && (
