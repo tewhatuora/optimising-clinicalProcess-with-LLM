@@ -79,7 +79,7 @@ function App() {
           content: input,
         }
       );
-
+      {/*
       const useCaseAssistantMap = {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
@@ -89,13 +89,18 @@ function App() {
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
       const assistantId = useCaseAssistantMap[useCase] || selectedAssistant;
-      {/*
-      const assistantId = useCase === 'discharge' 
-        ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl"
-        : useCase === 'learning_review_report'
-        ? "asst_6erSDGc8VagbJqzt6RWPT9t0"
-        : selectedAssistant;
       */}
+      const assistantId = 
+        useCase === 'discharge' 
+          ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl"
+          : useCase === 'review'
+          ? "asst_6erSDGc8VagbJqzt6RWPT9t0"
+          : useCase === 'summary'
+          ? "asst_5r1zDFF5azJdrE9XLHcewtyg"
+          : useCase === 'dev_CommunicationReview'
+          ? "asst_VntAx623DnQiaLaRrfW7rAWF"
+          : selectedAssistant;
+      
       console.log("Assts ID", assistantId);
       const runResponse = await client.beta.threads.runs.create(threadId, {
         assistant_id: assistantId,
@@ -180,7 +185,7 @@ function App() {
       case 'tuhi':
         return 'Analyze the medical consultation and generate an enhanced transcript based on selected template';
       case 'review':
-        return 'Learning Review Report'
+        return 'Add your clinical review meetings and case history to produce a draft learning review report'
       case 'summary':
         return 'AI generate Discharge Summary'
       case 'dev_CommunicationReview':
