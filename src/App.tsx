@@ -201,9 +201,9 @@ function App() {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1B4D5C] focus:border-transparent"
             >
               <option value="discharge">Discharge Summary Analysis</option>
+              <option value="summary">AI Generating Discharge Summary</option>
               <option value="tuhi">Tuhi Transcripts Analysis</option>
               <option value="review">Learn Review Report</option>
-              <option value="summary">AI Generating Discharge Summary</option>
             </select>
 
             {useCase === 'tuhi' && (
