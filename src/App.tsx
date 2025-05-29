@@ -83,7 +83,7 @@ function App() {
       const useCaseAssistantMap = {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
-        discharge_summary: "asst_5r1zDFF5azJdrE9XLHcewtyg"// Add your new assistant here
+        dischargeSummary: "asst_5r1zDFF5azJdrE9XLHcewtyg"// Add your new assistant here
       };
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
@@ -203,7 +203,7 @@ function App() {
               <option value="discharge">Discharge Summary Analysis</option>
               <option value="tuhi">Tuhi Transcripts Analysis</option>
               <option value="review">Learn Review Report</option>
-              <option value="discharge_summary">AI Generating Discharge Summary</option>
+              <option value="dischargeSummary">AI Generating Discharge Summary</option>
             </select>
 
             {useCase === 'tuhi' && (
