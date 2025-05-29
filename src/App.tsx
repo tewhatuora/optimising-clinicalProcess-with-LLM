@@ -79,7 +79,7 @@ function App() {
           content: input,
         }
       );
-      {/*
+      
       const useCaseAssistantMap = {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
@@ -89,7 +89,8 @@ function App() {
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
       const assistantId = useCaseAssistantMap[useCase] || selectedAssistant;
-      */}
+      
+      {/*
       const assistantId = 
         useCase === 'discharge' 
           ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl"
@@ -100,7 +101,7 @@ function App() {
           : useCase === 'dev_CommunicationReview'
           ? "asst_VntAx623DnQiaLaRrfW7rAWF"
           : selectedAssistant;
-      
+      */}
       console.log("Assts ID", assistantId);
       const runResponse = await client.beta.threads.runs.create(threadId, {
         assistant_id: assistantId,
