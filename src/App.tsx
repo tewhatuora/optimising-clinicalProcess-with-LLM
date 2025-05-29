@@ -203,7 +203,7 @@ function App() {
               <option value="discharge">Discharge Summary Analysis</option>
               <option value="tuhi">Tuhi Transcripts Analysis</option>
               <option value="review">Learn Review Report</option>
-              <option discharge_summary="review">AI Generating Discharge Summary</option>
+              <option value="discharge_summary">AI Generating Discharge Summary</option>
             </select>
 
             {useCase === 'tuhi' && (
