@@ -83,7 +83,8 @@ function App() {
       const useCaseAssistantMap = {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
-        summary: "asst_5r1zDFF5azJdrE9XLHcewtyg"// Add your new assistant here
+        summary: "asst_5r1zDFF5azJdrE9XLHcewtyg",
+        dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF"// Add your new assistant here
       };
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
@@ -178,6 +179,12 @@ function App() {
         return 'Analyse the Discharge Summary Report to extract and identify SNOMED CT procedure code';
       case 'tuhi':
         return 'Analyze the medical consultation and generate an enhanced transcript based on selected template';
+      case 'review':
+        return 'Learning Review Report'
+      case 'summary':
+        return 'AI generate Discharge Summary'
+      case 'dev_CommunicationReview':
+        return 'Review a consultation to get feedback on your communication'
       default:
         return 'Select a use case';
     }
@@ -204,6 +211,7 @@ function App() {
               <option value="summary">AI Generating Discharge Summary</option>
               <option value="tuhi">Tuhi Transcripts Analysis</option>
               <option value="review">Learn Review Report</option>
+              <option value="dev_CommunicationReview">Communication Review</option>
             </select>
 
             {useCase === 'tuhi' && (
