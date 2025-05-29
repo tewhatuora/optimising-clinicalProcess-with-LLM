@@ -61,4 +61,4 @@ jobs:
           app-name: 'DischargeSummary-CodeAnalysis'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B7270543DB2D4F428956838F20A71398 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5D3928A296B04E299E4816CFB813BD54 }}
