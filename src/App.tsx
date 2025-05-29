@@ -19,9 +19,9 @@ function App() {
   const [file, setFile] = useState<File | null>(null);
   
   const client = new AzureOpenAI({
-    endpoint: process.env.AZURE_OPENAI_ENDPOINT,
-    apiVersion: process.env.AZURE_OPENAI_API_VERSION,
-    apiKey: process.env.AZURE_OPENAI_API_KEY,
+    endpoint: "https://dev-tuhi-clinicalnotesynthesis.openai.azure.com",
+    apiVersion: "2024-05-01-preview",
+    apiKey: "149096a4341942e186e76793d516c568",
     dangerouslyAllowBrowser: true
   });
 
@@ -79,7 +79,7 @@ function App() {
           content: input,
         }
       );
-      {/*
+      
       const useCaseAssistantMap = {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
@@ -89,7 +89,8 @@ function App() {
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
       const assistantId = useCaseAssistantMap[useCase] || selectedAssistant;
-      */}
+      
+      {/*
       const assistantId = 
         useCase === 'discharge' 
           ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl"
@@ -100,7 +101,7 @@ function App() {
           : useCase === 'dev_CommunicationReview'
           ? "asst_VntAx623DnQiaLaRrfW7rAWF"
           : selectedAssistant;
-      
+      */}
       console.log("Assts ID", assistantId);
       const runResponse = await client.beta.threads.runs.create(threadId, {
         assistant_id: assistantId,
