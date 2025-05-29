@@ -19,7 +19,7 @@ function App() {
   const [file, setFile] = useState<File | null>(null);
   
   const client = new AzureOpenAI({
-    endpoint: process.env.AZURE_OPENAI_ENDPOINT",
+    endpoint: process.env.AZURE_OPENAI_ENDPOINT,
     apiVersion: process.env.AZURE_OPENAI_API_VERSION,
     apiKey: process.env.AZURE_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
