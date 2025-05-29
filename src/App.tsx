@@ -19,9 +19,9 @@ function App() {
   const [file, setFile] = useState<File | null>(null);
   
   const client = new AzureOpenAI({
-    endpoint: process.env.AZURE_OPENAI_ENDPOINT,
-    apiVersion: process.env.AZURE_OPENAI_API_VERSION,
-    apiKey: process.env.AZURE_OPENAI_API_KEY,
+    endpoint: "https://dev-tuhi-clinicalnotesynthesis.openai.azure.com",
+    apiVersion: "2024-05-01-preview",
+    apiKey: "149096a4341942e186e76793d516c568",
     dangerouslyAllowBrowser: true
   });
 
