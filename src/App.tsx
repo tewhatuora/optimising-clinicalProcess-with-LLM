@@ -3,10 +3,20 @@ import { Paperclip, SendHorizontal } from 'lucide-react';
 import { AzureOpenAI } from 'openai';
 import mammoth from 'mammoth';
 
+
 interface Assistant {
   id: string;
   name: string;
 }
+
+function markdownBoldToHtml(raw: string): string {
+  if (typeof raw !== 'string') return '';
+
+  // Replace all **text** with <strong>text</strong>
+  // Use a global regex with non-greedy matching
+  return raw.replace(/\*\*(.+?)\*\*/g, (_, boldText) => `<strong>${boldText}</strong>`);
+}
+
 
 function App() {
   const [input, setInput] = useState('');
@@ -123,7 +133,11 @@ function App() {
         const messages = await client.beta.threads.messages.list(threadId);
         const lastMessage = messages.data.filter(msg => msg.role === "assistant" && msg.content && msg.content.length > 0).map(msg => msg.content[0].text.value);
         if (lastMessage) {
-          setResult(lastMessage);
+          if (assistantId === "asst_5r1zDFF5azJdrE9XLHcewtyg") {
+            setResult(lastMessage.join('\n'));
+          } else {
+          setResult(lastMessage); // or however you normally get the full result
+          }
         } else {
           setResult("No response content available");
         }
@@ -218,6 +232,7 @@ function App() {
               <option value="tuhi">Tuhi Transcripts Analysis</option>
               <option value="review">Learn Review Report</option>
               <option value="dev_CommunicationReview">Communication Review</option>
+              
             </select>
 
             {useCase === 'tuhi' && (
@@ -298,6 +313,23 @@ function App() {
               <h2 className="text-lg font-medium text-gray-900 mb-4">Result</h2>
               <div className="bg-gray-50 p-4 rounded-lg h-[400px] overflow-auto">
                 {result ? (
+                  useCase === "summary" ? (
+                    <div
+                      className="prose max-w-none whitespace-pre-wrap text-gray-900"
+                      dangerouslySetInnerHTML={{ __html: markdownBoldToHtml(result ?? '') }}
+                    />
+                  ) : (
+                    <div className="prose max-w-none whitespace-pre-wrap text-gray-900">
+                      {result}
+                    </div>
+                  )
+                ) : (
+                  <div className="h-full flex items-center justify-center text-gray-400">
+                    Results will appear here
+                  </div>
+                )}
+              {/*
+                {result ? (
                   <div className="prose max-w-none">
                     {result}
                   </div>
@@ -306,6 +338,7 @@ function App() {
                     Results will appear here
                   </div>
                 )}
+              */}
               </div>
             </div>
           </div>
