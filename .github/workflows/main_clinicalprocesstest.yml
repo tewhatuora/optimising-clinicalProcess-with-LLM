@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - DischargeSummary-CodeAnalysis
+name: Build and deploy Node.js app to Azure Web App - clinicalProcessTest
 
 on:
   push:
@@ -58,7 +58,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'DischargeSummary-CodeAnalysis'
+          app-name: 'clinicalProcessTest'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9880B47532AF4C97A78FE73338A1B354 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_721CF621B50A40A381F64AFB2F186F64 }}
