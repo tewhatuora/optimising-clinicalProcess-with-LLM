@@ -63,7 +63,7 @@ function App() {
       const devAssistants = data.data.filter((assistant: Assistant) => 
         assistant.name.startsWith('dev')
       );
-      // console.log(devAssistants);
+      console.log("assistant:", devAssistants);
       setAssistants(devAssistants);
       if (devAssistants.length > 0) {
         setSelectedAssistant(devAssistants[0].id);
