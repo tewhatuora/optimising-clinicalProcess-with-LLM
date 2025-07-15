@@ -31,7 +31,7 @@ function App() {
   const client = new AzureOpenAI({
     endpoint: "https://dev-tuhi-clinicalnotesynthesis.openai.azure.com",
     apiVersion: "2024-05-01-preview",
-    apiKey: "ApM9LL3cuv4uvUYaSstdEZf10tDZAdDqOAHquEOUUrnSB3lOimbXJQQJ99BFACL93NaXJ3w3AAABACOGQuGW",
+    apiKey: "149096a4341942e186e76793d516c568",
     dangerouslyAllowBrowser: true
   });
 
