@@ -59,7 +59,7 @@ function App() {
       }
       
       const data = await response.json();
-      
+      console.log("Data:", data);
       const devAssistants = data.data.filter((assistant: Assistant) => 
         assistant.name.startsWith('dev')
       );
