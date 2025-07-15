@@ -95,7 +95,7 @@ function App() {
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
         summary: "asst_5r1zDFF5azJdrE9XLHcewtyg",
         dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF",
-        tuhe: selectedAssistant // Add your new assistant here
+        tuhi: selectedAssistant // Add your new assistant here
       };
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
