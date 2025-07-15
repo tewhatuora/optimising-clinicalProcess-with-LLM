@@ -59,11 +59,11 @@ function App() {
       }
       
       const data = await response.json();
-      console.log("Data:", data);
+      //console.log("Data:", data);
       const devAssistants = data.data.filter((assistant: Assistant) => 
         assistant.name.startsWith('dev')
       );
-      console.log("assistant:", devAssistants);
+      //console.log("assistant:", devAssistants);
       setAssistants(devAssistants);
       if (devAssistants.length > 0) {
         setSelectedAssistant(devAssistants[0].id);
