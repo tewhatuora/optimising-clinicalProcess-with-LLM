@@ -37,6 +37,7 @@ function App() {
 
   useEffect(() => {
     if (useCase === 'tuhi') {
+      console.log('Fetching assistants...');
       fetchAssistants();
     }
   }, [useCase]);
@@ -94,12 +95,11 @@ function App() {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
         summary: "asst_5r1zDFF5azJdrE9XLHcewtyg",
-        dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF",
-        tuhi: selectedAssistant // Add your new assistant here
+        dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF"// Add your new assistant here
       };
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
-      const assistantId = useCaseAssistantMap[useCase];// || selectedAssistant;
+      const assistantId = useCaseAssistantMap[useCase] || selectedAssistant;
       
       {/*
       const assistantId = 
