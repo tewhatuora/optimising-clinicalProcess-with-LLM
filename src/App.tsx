@@ -95,7 +95,9 @@ function App() {
         discharge: "asst_DeyRWVjRQjW4dyU5Zhicf8Vl",
         review: "asst_6erSDGc8VagbJqzt6RWPT9t0", 
         summary: "asst_5r1zDFF5azJdrE9XLHcewtyg",
-        dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF"// Add your new assistant here
+        dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF",
+        wdhb_hr_faq: 'asst_CafEPj0SvYzb8WuyatX5ZbWj',
+        wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd'// Add your new assistant here
       };
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
@@ -196,6 +198,10 @@ function App() {
 
   const getUseCaseTitle = () => {
     switch (useCase) {
+      case 'wdhb_hr_faq':
+        return 'Chatbot for WDHB HR FAQs';
+      case 'wdhb_anaesthesia_preop':
+        return 'WDHB Anaesthesia Pre-Operative Chatbot';
       case 'discharge':
         return 'Analyse the Discharge Summary Report to extract and identify SNOMED CT procedure code';
       case 'tuhi':
@@ -233,6 +239,8 @@ function App() {
               <option value="tuhi">Tuhi Transcripts Analysis</option>
               <option value="review">Learn Review Report</option>
               <option value="dev_CommunicationReview">Communication Review</option>
+              <option value="wdhb_hr_faq">WDHB HR FAQs Chatbot</option>
+              <option value="wdhb_anaesthesia_preop">WDHB Anaesthesia Pre-Operative Chatbot</option>
               
             </select>
 
