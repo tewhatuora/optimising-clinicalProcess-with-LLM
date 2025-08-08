@@ -97,6 +97,8 @@ function App() {
         summary: "asst_5r1zDFF5azJdrE9XLHcewtyg",
         dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF",
         wdhb_hr_faq: 'asst_CafEPj0SvYzb8WuyatX5ZbWj',
+        wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd',
+        Counties_Manukau_Lung_Function:'asst_ivGDvcf6FjiNlVx2IoXx2xWt' ,
         wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd'// Add your new assistant here
       };
 
@@ -200,6 +202,8 @@ function App() {
     switch (useCase) {
       case 'wdhb_hr_faq':
         return 'Chatbot for WDHB HR FAQs';
+      case 'Counties_Manukau_Lung_Function':
+        return 'Lung Function Analysis';
       case 'wdhb_anaesthesia_preop':
         return 'WDHB Anaesthesia Pre-Operative Chatbot';
       case 'discharge':
@@ -240,6 +244,7 @@ function App() {
               <option value="review">Learn Review Report</option>
               <option value="dev_CommunicationReview">Communication Review</option>
               <option value="wdhb_hr_faq">WDHB HR FAQs Chatbot</option>
+              <option value="Counties_Manukau_Lung_Function">Lung Function Analysis</option>
               <option value="wdhb_anaesthesia_preop">WDHB Anaesthesia Pre-Operative Chatbot</option>
               
             </select>
