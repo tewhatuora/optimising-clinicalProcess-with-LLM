@@ -98,7 +98,8 @@ function App() {
         dev_CommunicationReview: "asst_VntAx623DnQiaLaRrfW7rAWF",
         wdhb_hr_faq: 'asst_CafEPj0SvYzb8WuyatX5ZbWj',
         wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd',
-        Counties_Manukau_Lung_Function:'asst_ivGDvcf6FjiNlVx2IoXx2xWt' // Add your new assistant here
+        Counties_Manukau_Lung_Function:'asst_ivGDvcf6FjiNlVx2IoXx2xWt' ,
+        wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd'// Add your new assistant here
       };
 
       // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
