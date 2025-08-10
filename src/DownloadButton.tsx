@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Download } from 'lucide-react';
 import { pdf, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-import { Document as DocxDocument, Packer, Paragraph } from 'docx';
 import { saveAs } from 'file-saver';
 
 interface DownloadButtonProps {
@@ -66,37 +65,10 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ resultContent, isResult
     }
   };
 
-  const downloadAsWord = async () => {
-    try {
-      const doc = new DocxDocument({
-        sections: [
-          {
-            properties: {},
-            children: [
-              new Paragraph({
-                text: resultContent,
-              }),
-            ],
-          },
-        ],
-      });
-
-      const buffer = await Packer.toBuffer(doc);
-      const blob = new Blob([buffer], { 
-        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
-      });
-      saveAs(blob, 'result.docx');
-      setIsDropdownOpen(false);
-    } catch (error) {
-      console.error('Error generating Word document:', error);
-    }
-  };
-
   const downloadOptions = [
     { label: 'Text (.txt)', action: downloadAsText },
     { label: 'Markdown (.md)', action: downloadAsMarkdown },
     { label: 'PDF (.pdf)', action: downloadAsPDF },
-    { label: 'Word (.docx)', action: downloadAsWord },
   ];
 
   return (
