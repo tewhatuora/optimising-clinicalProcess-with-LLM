@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Paperclip, SendHorizontal } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { SendHorizontal } from 'lucide-react';
 import { AzureOpenAI } from 'openai';
-import mammoth from 'mammoth';
 import DownloadButton from './DownloadButton';
+import FileUpload from './FileUpload';
 
 interface Assistant {
   id: string;
@@ -26,6 +26,7 @@ function App() {
   const [selectedAssistant, setSelectedAssistant] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [isHtmlContent, setIsHtmlContent] = useState(false);
   
   const client = new AzureOpenAI({
     endpoint: "https://dev-tuhi-clinicalnotesynthesis.openai.azure.com",
@@ -58,11 +59,9 @@ function App() {
       }
       
       const data = await response.json();
-      //console.log("Data:", data);
       const devAssistants = data.data.filter((assistant: Assistant) => 
         assistant.name.startsWith('dev')
       );
-      //console.log("assistant:", devAssistants);
       setAssistants(devAssistants);
       if (devAssistants.length > 0) {
         setSelectedAssistant(devAssistants[0].id);
@@ -98,25 +97,12 @@ function App() {
         wdhb_hr_faq: 'asst_CafEPj0SvYzb8WuyatX5ZbWj',
         wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd',
         Counties_Manukau_Lung_Function:'asst_ivGDvcf6FjiNlVx2IoXx2xWt' ,
-        wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd'// Add your new assistant here
+        wdhb_anaesthesia_preop: 'asst_FrHyncum8iAIuHpKzwV1RQWd'
       };
 
-      // Choose assistant ID based on use case, otherwise fall back to manually selected assistant
       const assistantId = useCaseAssistantMap[useCase] || selectedAssistant;
       
-      {/*
-      const assistantId = 
-        useCase === 'discharge' 
-          ? "asst_DeyRWVjRQjW4dyU5Zhicf8Vl"
-          : useCase === 'review'
-          ? "asst_6erSDGc8VagbJqzt6RWPT9t0"
-          : useCase === 'summary'
-          ? "asst_5r1zDFF5azJdrE9XLHcewtyg"
-          : useCase === 'dev_CommunicationReview'
-          ? "asst_VntAx623DnQiaLaRrfW7rAWF"
-          : selectedAssistant;
-      */}
-      console.log("Assts ID", assistantId);
+      console.log("Assistant ID", assistantId);
       const runResponse = await client.beta.threads.runs.create(threadId, {
         assistant_id: assistantId,
       });
@@ -140,7 +126,7 @@ function App() {
           if (assistantId === "asst_5r1zDFF5azJdrE9XLHcewtyg") {
             setResult(lastMessage.join('\n'));
           } else {
-          setResult(lastMessage);
+            setResult(lastMessage); 
           }
         } else {
           setResult("No response content available");
@@ -160,41 +146,8 @@ function App() {
     setInput('');
     setResult('');
     setFileName('');
-  };
-
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
-  
-    setFile(selectedFile);
-  
-    const reader = new FileReader();
-  
-    if (selectedFile.name.endsWith(".docx")) {
-      reader.onload = async (e) => {
-        const arrayBuffer = e.target?.result as ArrayBuffer;
-        try {
-          const result = await mammoth.extractRawText({ arrayBuffer });
-          setInput((prevInput) => `${prevInput}\n\n${result.value}`);
-        } catch (error) {
-          console.error("Error extracting text from .docx:", error);
-          setInput((prevInput) => `${prevInput}\n\n[Could not extract text from file]`);
-        }
-      };
-      reader.readAsArrayBuffer(selectedFile);
-    } else if (selectedFile.type.startsWith("text/")) {
-      reader.onload = (e) => {
-        const fileContent = e.target?.result as string;
-        setInput((prevInput) => `${prevInput}\n\n${fileContent}`);
-      };
-      reader.readAsText(selectedFile);
-    } else {
-      reader.onload = (e) => {
-        const base64String = e.target?.result as string;
-        setInput((prevInput) => `${prevInput}\n\n[File Uploaded: ${selectedFile.name}, Base64: ${base64String.substring(0, 100)}...]`);
-      };
-      reader.readAsDataURL(selectedFile);
-    }
+    setIsHtmlContent(false);
+    setFile(null);
   };
 
   const getUseCaseTitle = () => {
@@ -245,7 +198,6 @@ function App() {
               <option value="wdhb_hr_faq">WDHB HR FAQs Chatbot</option>
               <option value="Counties_Manukau_Lung_Function">Lung Function Analysis</option>
               <option value="wdhb_anaesthesia_preop">WDHB Anaesthesia Pre-Operative Chatbot</option>
-              
             </select>
 
             {useCase === 'tuhi' && (
@@ -274,27 +226,51 @@ function App() {
             <div className="p-6">
               <h2 className="text-lg font-medium text-gray-900 mb-4">Input</h2>
               <div className="relative">
-                <textarea
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Enter your text here..."
-                  className="w-full h-[400px] p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#1B4D5C] focus:border-transparent resize-none"
-                />
-                <div className="absolute bottom-4 left-4">
-                  <input 
-                    type="file"
-                    accept=".txt,.doc,.docx"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    id="file-upload"
+                {isHtmlContent ? (
+                  // Display HTML content (read-only preview)
+                  <div className="w-full h-[400px] p-4 border border-gray-200 rounded-lg bg-white overflow-auto">
+                    <div className="text-sm text-gray-500 mb-2">
+                      Uploaded Content Preview ({fileName}):
+                    </div>
+                    <div 
+                      className="prose max-w-none"
+                      dangerouslySetInnerHTML={{ __html: input }}
+                      style={{ fontSize: '12px', lineHeight: '1.4' }}
+                    />
+                  </div>
+                ) : (
+                  // Regular textarea for manual text input
+                  <textarea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Enter your text here or upload a document..."
+                    className="w-full h-[400px] p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#1B4D5C] focus:border-transparent resize-none"
                   />
-                  <label
-                    htmlFor="file-upload"
-                    className="inline-flex items-center text-gray-600 hover:text-gray-900 cursor-pointer"
-                  >
-                    <Paperclip className="w-5 h-5 mr-2" />
-                    <span>{fileName || "Attach a file"}</span>
-                  </label>
+                )}
+                
+                <div className="absolute bottom-4 left-4 flex items-center space-x-4">
+                  <FileUpload
+                    onFileUploaded={(content, filename, isHtml) => {
+                      setInput(content);
+                      setFileName(filename);
+                      setIsHtmlContent(isHtml);
+                      setFile(null);
+                    }}
+                    fileName={fileName}
+                  />
+                  
+                  {isHtmlContent && (
+                    <button
+                      onClick={() => {
+                        setIsHtmlContent(false);
+                        setInput('');
+                        setFileName('');
+                      }}
+                      className="text-sm text-red-600 hover:text-red-800"
+                    >
+                      Clear & Edit Text
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="mt-4 flex justify-between">
