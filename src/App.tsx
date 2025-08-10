@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Paperclip, SendHorizontal } from 'lucide-react';
 import { AzureOpenAI } from 'openai';
 import mammoth from 'mammoth';
-
+import DownloadButton from './DownloadButton';
 
 interface Assistant {
   id: string;
@@ -16,7 +16,6 @@ function markdownBoldToHtml(raw: string): string {
   // Use a global regex with non-greedy matching
   return raw.replace(/\*\*(.+?)\*\*/g, (_, boldText) => `<strong>${boldText}</strong>`);
 }
-
 
 function App() {
   const [input, setInput] = useState('');
@@ -141,7 +140,7 @@ function App() {
           if (assistantId === "asst_5r1zDFF5azJdrE9XLHcewtyg") {
             setResult(lastMessage.join('\n'));
           } else {
-          setResult(lastMessage); // or however you normally get the full result
+          setResult(lastMessage);
           }
         } else {
           setResult("No response content available");
@@ -324,7 +323,13 @@ function App() {
           {/* Result Section */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Result</h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-medium text-gray-900">Result</h2>
+                <DownloadButton 
+                  resultContent={result} 
+                  isResultEmpty={!result || result === 'Processing...'} 
+                />
+              </div>
               <div className="bg-gray-50 p-4 rounded-lg h-[400px] overflow-auto">
                 {result ? (
                   useCase === "summary" ? (
@@ -342,17 +347,6 @@ function App() {
                     Results will appear here
                   </div>
                 )}
-              {/*
-                {result ? (
-                  <div className="prose max-w-none">
-                    {result}
-                  </div>
-                ) : (
-                  <div className="h-full flex items-center justify-center text-gray-400">
-                    Results will appear here
-                  </div>
-                )}
-              */}
               </div>
             </div>
           </div>
